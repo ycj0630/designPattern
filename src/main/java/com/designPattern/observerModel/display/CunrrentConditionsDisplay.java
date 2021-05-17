@@ -3,16 +3,18 @@
  */
 package com.designPattern.observerModel.display;
 
+import com.designPattern.observerModel.Subject.WheatherData;
 import com.designPattern.observerModel.observer.DisplayElement;
-import com.designPattern.observerModel.observer.PublishObserver;
-import com.designPattern.observerModel.Subject.Subject;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author wb-ycj545508
  * @version $Id: CunrrentConditionsDisplay.java, v 0.1 2021年05月17日 17:40 wb-ycj545508 Exp $
  */
-public class CunrrentConditionsDisplay extends PublishObserver implements DisplayElement {
+public class CunrrentConditionsDisplay implements DisplayElement,Observer {
 
     private String temperature;
 
@@ -20,9 +22,11 @@ public class CunrrentConditionsDisplay extends PublishObserver implements Displa
 
     private String pressure;
 
-    public CunrrentConditionsDisplay(Subject wheatherData) {
-        super.wheatherData = wheatherData;
-        wheatherData.registerObserver(this);
+    private Observable wheatherData;
+
+    public CunrrentConditionsDisplay(Observable wheatherData) {
+        this.wheatherData = wheatherData;
+        this.wheatherData.addObserver(this);
     }
 
     @Override
@@ -31,10 +35,12 @@ public class CunrrentConditionsDisplay extends PublishObserver implements Displa
     }
 
     @Override
-    public void update() {
-        setHumidity(wheatherData.getHumidity());
-        setPressure(wheatherData.getPressure());
-        setTemperature(wheatherData.getTemplate());
+    public void update(Observable o, Object arg) {
+        if(o instanceof WheatherData){
+           setTemperature(((WheatherData)o).getTemperature());
+           setPressure(((WheatherData) o).getPressure());
+           setHumidity(((WheatherData) o).getHumidity());
+        }
     }
 
     public void setTemperature(String temperature) {
@@ -48,4 +54,5 @@ public class CunrrentConditionsDisplay extends PublishObserver implements Displa
     public void setPressure(String pressure) {
         this.pressure = pressure;
     }
+
 }

@@ -3,12 +3,13 @@
  */
 package com.designPattern.observerModel;
 
-import com.designPattern.observerModel.Subject.Subject;
 import com.designPattern.observerModel.Subject.WheatherData;
 import com.designPattern.observerModel.display.CunrrentConditionsDisplay;
 import com.designPattern.observerModel.display.StaticsDisplay;
 import com.designPattern.observerModel.display.ThirdPartyDisplay;
-import com.designPattern.observerModel.observer.PublishObserver;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -18,11 +19,11 @@ import com.designPattern.observerModel.observer.PublishObserver;
 public class testCase {
 
     public static void main(String[] args) {
-        Subject wheatherData = new WheatherData();
+        Observable wheatherData = new WheatherData();
 
-        PublishObserver ccd = new CunrrentConditionsDisplay(wheatherData);
-        PublishObserver sd = new StaticsDisplay(wheatherData);
-        PublishObserver tp = new ThirdPartyDisplay(wheatherData);
+        Observer ccd = new CunrrentConditionsDisplay(wheatherData);
+        Observer sd = new StaticsDisplay(wheatherData);
+        Observer tp = new ThirdPartyDisplay(wheatherData);
 
         //模拟气象站更新数据
         ((WheatherData) wheatherData).setHumidity("15.5");

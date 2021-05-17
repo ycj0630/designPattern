@@ -3,35 +3,43 @@
  */
 package com.designPattern.observerModel.display;
 
+import com.designPattern.observerModel.Subject.WheatherData;
 import com.designPattern.observerModel.observer.DisplayElement;
-import com.designPattern.observerModel.observer.PublishObserver;
-import com.designPattern.observerModel.Subject.Subject;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author wb-ycj545508
  * @version $Id: ThirdPartyDisplay.java, v 0.1 2021年05月17日 17:41 wb-ycj545508 Exp $
  */
-public class ThirdPartyDisplay extends PublishObserver implements DisplayElement {
+public class ThirdPartyDisplay implements DisplayElement, Observer {
 
     private String minValue;
 
     private String maxValue;
 
-    public ThirdPartyDisplay(Subject wheatherData) {
-        super.wheatherData = wheatherData;
-        wheatherData.registerObserver(this);
+    private Observable wheatherData;
+
+    public ThirdPartyDisplay(Observable wheatherData) {
+        this.wheatherData = wheatherData;
+        this.wheatherData.addObserver(this);
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o instanceof WheatherData){
+            setMaxValue(((WheatherData) o).getMaxValue());
+            setMinValue(((WheatherData) o).getMinValue());
+        }
+
+        setMaxValue(maxValue);
+        setMinValue(minValue);
+    }
     @Override
     public void display() {
         System.out.println("最大值："+maxValue+", 最小值："+minValue);
-    }
-
-    @Override
-    public void update() {
-        setMaxValue(maxValue);
-        setMinValue(minValue);
     }
 
     public void setMinValue(String minValue) {
@@ -41,4 +49,5 @@ public class ThirdPartyDisplay extends PublishObserver implements DisplayElement
     public void setMaxValue(String maxValue) {
         this.maxValue = maxValue;
     }
+
 }

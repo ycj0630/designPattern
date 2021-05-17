@@ -3,20 +3,17 @@
  */
 package com.designPattern.observerModel.Subject;
 
-import com.designPattern.observerModel.Subject.Subject;
 import com.designPattern.observerModel.observer.PublishObserver;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  *
  * @author wb-ycj545508
  * @version $Id: WheatherData.java, v 0.1 2021年05月17日 15:37 wb-ycj545508 Exp $
  */
-public class WheatherData implements Subject {
-
-    private List<PublishObserver> observers;
+public class WheatherData extends Observable {
 
     private String temperature;
 
@@ -24,43 +21,20 @@ public class WheatherData implements Subject {
 
     private String pressure;
 
-    public WheatherData() {
-        observers = new ArrayList<>();
-    }
+    private String minValue;
 
-    @Override
-    public void registerObserver(PublishObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(PublishObserver observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObserver() {
-        for(PublishObserver observer : observers){
-            observer.update();
-        }
-    }
+    private String maxValue;
 
     public void measurementsChanged(){
-
-        notifyObserver();
+        setChanged();
+        notifyObservers();
     }
 
-    @Override
-    public String getTemplate() {
-        return temperature;
-    }
 
-    @Override
     public String getHumidity() {
         return humidity;
     }
 
-    @Override
     public String getPressure() {
         return pressure;
     }
@@ -75,5 +49,17 @@ public class WheatherData implements Subject {
 
     public void setPressure(String pressure) {
         this.pressure = pressure;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public String getMinValue() {
+        return minValue;
+    }
+
+    public String getMaxValue() {
+        return maxValue;
     }
 }

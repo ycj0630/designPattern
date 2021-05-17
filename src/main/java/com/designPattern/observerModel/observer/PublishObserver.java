@@ -3,7 +3,7 @@
  */
 package com.designPattern.observerModel.observer;
 
-import com.designPattern.observerModel.Subject.Subject;
+import java.util.Observable;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.designPattern.observerModel.Subject.Subject;
  */
 public abstract class PublishObserver {
 
-    protected Subject wheatherData;
+    protected Observable wheatherData;
 
     public abstract void update();
 
