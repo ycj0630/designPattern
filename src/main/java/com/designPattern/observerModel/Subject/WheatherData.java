@@ -3,9 +3,6 @@
  */
 package com.designPattern.observerModel.Subject;
 
-import com.designPattern.observerModel.observer.PublishObserver;
-
-import java.util.List;
 import java.util.Observable;
 
 /**
