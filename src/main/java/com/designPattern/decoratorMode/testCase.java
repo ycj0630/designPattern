@@ -11,7 +11,7 @@ import com.designPattern.decoratorMode.decorators.condiments.Whip;
 /**
  *
  * @author wb-ycj545508
- * @version $Id: testCase.java, v 0.1 2021年05月19日 18:52 wb-ycj545508 Exp $
+ * @version $Id: TestCase.java, v 0.1 2021年05月19日 18:52 wb-ycj545508 Exp $
  */
 public class testCase {
 
